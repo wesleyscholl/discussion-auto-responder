@@ -1,16 +1,15 @@
-name: Say Hello
+name: Discussion Autoresponder
 
 on:
-  pull_request:
-    types: [opened, reopened]
+  discussion:
+    types: [created]
 
 jobs:
-  run-my-action:
-    name: Checks if this action works
+  autorespond:
+    name: Posts an autoresponder comment on a new discussion
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: ./
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
-          label: 'needs-review'

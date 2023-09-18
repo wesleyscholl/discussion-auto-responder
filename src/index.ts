@@ -1,27 +1,35 @@
 import { getInput, setFailed } from '@actions/core';
 import { context, getOctokit } from '@actions/github';
+const { Octokit } = require("@octokit/action");
 
 async function run() {
-  const token = getInput('gh-token');
-  const label = getInput('label');
-
-  const octokit = getOctokit(token);
-  const pullRequest = context.payload.pull_request;
+  const octokit = new Octokit();
+  const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
+  console.log(eventPayload)
+  const discussionId = eventPayload.discussion.node_id;
+  console.log(discussionId)
 
   try {
-    if (!pullRequest) {
-      throw new Error('This action can only be run on Pull Requests');
-    }
-
-    await octokit.rest.issues.addLabels({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: pullRequest.number,
-      labels: [label],
-    });
+    const response = await octokit.graphql(
+      `
+      mutation {
+        addDiscussionComment(
+          input: {body: "This is a comment from GQL", discussionId: "D_kwDOKMfoY84AVSDz", clientMutationId: "8888"}
+        ) {
+          clientMutationId
+          comment {
+            id
+            body
+          }
+        }
+      }
+      `
+    );
   } catch (error) {
     setFailed((error as Error)?.message ?? 'Unknown error');
   }
 }
 
 run();
+
+
