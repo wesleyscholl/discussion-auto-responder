@@ -5,3 +5,14 @@ author: 'Leonardo Montini'
 runs:
   using: 'node16'
   main: 'dist/index.js'
+
+inputs:
+  name:
+    description: 'The name of the person to greet'
+    required: true
+    default: 'World'
+
+branding:
+  icon: 'activity'
+  color: 'green'
+

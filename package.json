@@ -1,0 +1,24 @@
+{
+  "name": "discussion-auto-responder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wesleyscholl/discussion-auto-responder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wesleyscholl/discussion-auto-responder/issues"
+  },
+  "homepage": "https://github.com/wesleyscholl/discussion-auto-responder#readme",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
