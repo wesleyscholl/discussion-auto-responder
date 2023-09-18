@@ -1,18 +1,18 @@
-name: 'My Custom Action'
-description: 'Say Hello'
-author: 'Leonardo Montini'
+name: 'Discussion Auto Responder'
+description: 'Comment or autorespond to new discussions'
+author: 'Wesley Scholl'
 
 runs:
   using: 'node16'
   main: 'dist/index.js'
 
-inputs:
-  gh-token:
-    description: 'The GitHub token for authentication.'
-    required: true
-  label:
-    description: 'The label to be applied to the pull request.'
-    required: true
+# inputs:
+#   gh-token:
+#     description: 'The GitHub token for authentication.'
+#     required: true
+#   label:
+#     description: 'The label to be applied to the pull request.'
+#     required: true
 
 branding:
   icon: 'activity'
