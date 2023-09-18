@@ -30383,16 +30383,16 @@ const { Octokit } = __nccwpck_require__(1231);
 async function run() {
     var _a;
     const token = (0, core_1.getInput)('GITHUB_TOKEN');
+    const commentBody = (0, core_1.getInput)('comment_body');
     const octokit = new Octokit(token);
     const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
-    console.log(eventPayload);
     const discussionId = eventPayload.discussion.node_id;
     console.log(discussionId);
     try {
         const response = await octokit.graphql(`
       mutation {
         addDiscussionComment(
-          input: {body: "This is a comment from GQL", discussionId: "${discussionId}", clientMutationId: "8888"}
+          input: {body: "${commentBody}", discussionId: "${discussionId}", clientMutationId: "1234"}
         ) {
           clientMutationId
           comment {
