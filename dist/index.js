@@ -30382,7 +30382,7 @@ const core_1 = __nccwpck_require__(2186);
 const { Octokit } = __nccwpck_require__(1231);
 async function run() {
     var _a;
-    const token = (0, core_1.getInput)('gh-token');
+    const token = (0, core_1.getInput)('GITHUB_TOKEN');
     const octokit = new Octokit(token);
     const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
     console.log(eventPayload);

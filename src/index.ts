@@ -3,7 +3,7 @@ import { context, getOctokit } from "@actions/github";
 const { Octokit } = require("@octokit/action");
 
 async function run() {
-  const token = getInput('gh-token');
+  const token = getInput('GITHUB_TOKEN');
 
   const octokit = new Octokit(token);
   const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
