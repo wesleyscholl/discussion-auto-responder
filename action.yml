@@ -1,0 +1,7 @@
+name: 'My Custom Action'
+description: 'Say Hello'
+author: 'Leonardo Montini'
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
