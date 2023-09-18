@@ -1,7 +1,8 @@
 name: Say Hello
 
 on:
-  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened]
 
 jobs:
   run-my-action:
@@ -11,4 +12,5 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./
         with:
-          name: 'Leonardo'
+          gh-token: ${{ secrets.GITHUB_TOKEN }}
+          label: 'needs-review'
