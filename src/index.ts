@@ -16,7 +16,7 @@ async function run() {
       `
       mutation {
         addDiscussionComment(
-          input: {body: "This is a comment from GQL", discussionId: "D_kwDOKMfoY84AVSDz", clientMutationId: "8888"}
+          input: {body: "This is a comment from GQL", discussionId: "${discussionId}", clientMutationId: "8888"}
         ) {
           clientMutationId
           comment {
