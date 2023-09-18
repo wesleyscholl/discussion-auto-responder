@@ -1,4 +1,5 @@
 import { getInput, setFailed } from "@actions/core";
+// @ts-ignore
 const { Octokit } = require("@octokit/action");
 
 async function run() {
@@ -33,3 +34,5 @@ async function run() {
 }
 
 run();
+
+export { run }

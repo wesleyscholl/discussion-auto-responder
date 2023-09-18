@@ -1,119 +1,69 @@
-import { run } from "../index";
-import { getInput, setFailed } from "@actions/core";
-import { context, getOctokit } from "@actions/github";
+import { run } from '../index';
+import { getInput, setFailed } from '@actions/core';
+import { Octokit } from '@octokit/action';
 
-// Mock getInput and setFailed functions
-jest.mock("@actions/core", () => ({
-  getInput: jest.fn(),
-  setFailed: jest.fn(),
-}));
+jest.mock('@actions/core');
+jest.mock('@octokit/action');
 
-// Mock context and getOctokit functions
-jest.mock("@actions/github", () => ({
-  context: {
-    payload: {
-      pull_request: {
-        number: 1,
-      },
-    },
-    repo: {
-      owner: "owner",
-      repo: "repo",
-    },
-  },
-  getOctokit: jest.fn(),
-}));
+describe('run', () => {
+  let getInputMock: jest.Mock;
+  let octokitMock: jest.Mock;
+  let eventPayloadMock: jest.Mock;
 
-describe("run", () => {
   beforeEach(() => {
-    // Clear all mock function calls and reset mock implementation
-    jest.clearAllMocks();
+    getInputMock = jest.fn();
+    octokitMock = jest.fn();
+    eventPayloadMock = jest.fn();
+
+    getInputMock.mockReturnValue('GITHUB_TOKEN');
+    octokitMock.mockImplementation(() => {
+      return {
+        graphql: jest.fn(),
+      };
+    });
+    eventPayloadMock.mockReturnValue({
+      discussion: {
+        node_id: '1234567890',
+      },
+    });
   });
 
-  it("should throw an error if not run on a pull request", async () => {
-    // Mock the return values for getInput
-    (getInput as jest.Mock).mockReturnValueOnce("gh-token-value");
-    (getInput as jest.Mock).mockReturnValueOnce("label-value");
-    (context as any).payload.pull_request = undefined;
+  it('should add a comment to the discussion', async () => {
+    const commentBody = 'This is a comment.';
 
-    // Run the function
+    getInputMock.mockReturnValueOnce('comment_body');
+
     await run();
 
-    // Assertions
-    expect(setFailed).toHaveBeenCalledWith(
-      "This action can only be run on Pull Requests"
+    expect(octokitMock).toHaveBeenCalledWith('GITHUB_TOKEN');
+    expect(octokitMock.mock.instances[0].graphql).toHaveBeenCalledWith(
+      `
+      mutation {
+        addDiscussionComment(
+          input: {body: "${commentBody}", discussionId: "1234567890", clientMutationId: "1234"}
+        ) {
+          clientMutationId
+          comment {
+            id
+            body
+          }
+        }
+      }
+      `
     );
   });
 
-  it("should add label to the pull request", async () => {
-    // Mock the return values for getInput
-    (getInput as jest.Mock).mockReturnValueOnce("gh-token-value");
-    (getInput as jest.Mock).mockReturnValueOnce("label-value");
-    (context as any).payload.pull_request = {
-      number: 1,
-    };
+  it('should fail if there is an error adding the comment', async () => {
+    const error = new Error('Failed to add comment.');
 
-    // Mock the Octokit instance and the addLabels method
-    const mockAddLabels = jest.fn();
-    const mockOctokit = {
-      rest: {
-        issues: {
-          addLabels: mockAddLabels,
-        },
-      },
-    };
-    (getOctokit as jest.Mock).mockReturnValueOnce(mockOctokit);
+    octokitMock.mockImplementationOnce(() => {
+      return {
+        graphql: jest.fn().mockRejectedValue(error),
+      };
+    });
 
-    // Run the function
     await run();
 
-    // Assertions
-    expect(getInput).toHaveBeenCalledWith("gh-token");
-    expect(getInput).toHaveBeenCalledWith("label");
-    expect(getOctokit).toHaveBeenCalledWith("gh-token-value");
-    expect(mockAddLabels).toHaveBeenCalledWith({
-      owner: "owner",
-      repo: "repo",
-      issue_number: 1,
-      labels: ["label-value"],
-    });
-    expect(setFailed).not.toHaveBeenCalled();
-  });
-
-  it("should handle error and set failed", async () => {
-    // Mock the return values for getInput
-    (getInput as jest.Mock).mockReturnValueOnce("gh-token-value");
-    (getInput as jest.Mock).mockReturnValueOnce("label-value");
-    (context as any).payload.pull_request = {
-      number: 1,
-    };
-
-    // Mock the Octokit instance and throw an error in addLabels
-    const mockAddLabels = jest
-      .fn()
-      .mockRejectedValueOnce(new Error("Test error"));
-    const mockOctokit = {
-      rest: {
-        issues: {
-          addLabels: mockAddLabels,
-        },
-      },
-    };
-    (getOctokit as jest.Mock).mockReturnValueOnce(mockOctokit);
-
-    // Run the function
-    await run();
-
-    // Assertions
-    expect(getInput).toHaveBeenCalledWith("gh-token");
-    expect(getInput).toHaveBeenCalledWith("label");
-    expect(getOctokit).toHaveBeenCalledWith("gh-token-value");
-    expect(mockAddLabels).toHaveBeenCalledWith({
-      owner: "owner",
-      repo: "repo",
-      issue_number: 1,
-      labels: ["label-value"],
-    });
-    expect(setFailed).toHaveBeenCalledWith("Test error");
+    expect(setFailed).toHaveBeenCalledWith(error.message);
   });
 });

@@ -5,5 +5,8 @@
     "coverageReporters": ["lcov", "text-summary"],
     "collectCoverageFrom": ["src/**/*.ts"],
     "coveragePathIgnorePatterns": ["/node_modules/", "/__tests__/"],
-    "testPathIgnorePatterns": ["/node_modules/"]
+    "testPathIgnorePatterns": ["/node_modules/"],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "jest"
+    }
   }

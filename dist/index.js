@@ -1,6 +1,61 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 4822:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.run = void 0;
+const core_1 = __nccwpck_require__(2186);
+// @ts-ignore
+const { Octokit } = __nccwpck_require__(1231);
+function run() {
+    var _a;
+    return __awaiter(this, void 0, void 0, function* () {
+        const token = (0, core_1.getInput)('GITHUB_TOKEN');
+        const commentBody = (0, core_1.getInput)('comment_body');
+        const octokit = new Octokit(token);
+        const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
+        const discussionId = eventPayload.discussion.node_id;
+        console.log(discussionId);
+        try {
+            const response = yield octokit.graphql(`
+      mutation {
+        addDiscussionComment(
+          input: {body: "${commentBody}", discussionId: "${discussionId}", clientMutationId: "1234"}
+        ) {
+          clientMutationId
+          comment {
+            id
+            body
+          }
+        }
+      }
+      `);
+            console.log(response);
+        }
+        catch (error) {
+            (0, core_1.setFailed)((_a = error === null || error === void 0 ? void 0 : error.message) !== null && _a !== void 0 ? _a : "Unknown error");
+        }
+    });
+}
+exports.run = run;
+run();
+
+
+/***/ }),
+
 /***/ 7351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -30371,47 +30426,12 @@ module.exports = require("zlib");
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
-"use strict";
-var exports = __webpack_exports__;
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core_1 = __nccwpck_require__(2186);
-const { Octokit } = __nccwpck_require__(1231);
-async function run() {
-    var _a;
-    const token = (0, core_1.getInput)('GITHUB_TOKEN');
-    const commentBody = (0, core_1.getInput)('comment_body');
-    const octokit = new Octokit(token);
-    const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
-    const discussionId = eventPayload.discussion.node_id;
-    console.log(discussionId);
-    try {
-        const response = await octokit.graphql(`
-      mutation {
-        addDiscussionComment(
-          input: {body: "${commentBody}", discussionId: "${discussionId}", clientMutationId: "1234"}
-        ) {
-          clientMutationId
-          comment {
-            id
-            body
-          }
-        }
-      }
-      `);
-        console.log(response);
-    }
-    catch (error) {
-        (0, core_1.setFailed)((_a = error === null || error === void 0 ? void 0 : error.message) !== null && _a !== void 0 ? _a : "Unknown error");
-    }
-}
-run();
-
-})();
-
-module.exports = __webpack_exports__;
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __nccwpck_require__(4822);
+/******/ 	module.exports = __webpack_exports__;
+/******/ 	
 /******/ })()
 ;
