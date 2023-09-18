@@ -30382,7 +30382,8 @@ const core_1 = __nccwpck_require__(2186);
 const { Octokit } = __nccwpck_require__(1231);
 async function run() {
     var _a;
-    const octokit = new Octokit();
+    const token = (0, core_1.getInput)('gh-token');
+    const octokit = new Octokit(token);
     const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
     console.log(eventPayload);
     const discussionId = eventPayload.discussion.node_id;
@@ -30401,9 +30402,10 @@ async function run() {
         }
       }
       `);
+        console.log(response);
     }
     catch (error) {
-        (0, core_1.setFailed)((_a = error === null || error === void 0 ? void 0 : error.message) !== null && _a !== void 0 ? _a : 'Unknown error');
+        (0, core_1.setFailed)((_a = error === null || error === void 0 ? void 0 : error.message) !== null && _a !== void 0 ? _a : "Unknown error");
     }
 }
 run();
