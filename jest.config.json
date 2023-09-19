@@ -1,12 +1,10 @@
 {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "collectCoverage": true,
-    "coverageReporters": ["lcov", "text-summary"],
-    "collectCoverageFrom": ["src/**/*.ts"],
-    "coveragePathIgnorePatterns": ["/node_modules/", "/__tests__/"],
-    "testPathIgnorePatterns": ["/node_modules/"],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "jest"
-    }
-  }
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "collectCoverage": true,
+  "coverageReporters": ["lcov", "text-summary"],
+  "collectCoverageFrom": ["src/**/*.ts"],
+  "coveragePathIgnorePatterns": ["/node_modules/", "/__tests__/"],
+  "testPathIgnorePatterns": ["/node_modules/"],
+  "testMatch": ["<rootDir>/src/**/*.test.ts"]
+}

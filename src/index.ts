@@ -1,12 +1,11 @@
 import { getInput, setFailed } from "@actions/core";
-// @ts-ignore
-const { Octokit } = require("@octokit/action");
+import { Octokit } from "@octokit/action";
 
 async function run() {
   const token = getInput('GITHUB_TOKEN');
   const commentBody = getInput('comment_body');
 
-  const octokit = new Octokit(token);
+  const octokit = new Octokit({token});
   const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
   const discussionId = eventPayload.discussion.node_id;
   console.log(discussionId);

@@ -18,14 +18,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core_1 = __nccwpck_require__(2186);
-// @ts-ignore
-const { Octokit } = __nccwpck_require__(1231);
+const action_1 = __nccwpck_require__(1231);
 function run() {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
         const token = (0, core_1.getInput)('GITHUB_TOKEN');
         const commentBody = (0, core_1.getInput)('comment_body');
-        const octokit = new Octokit(token);
+        const octokit = new action_1.Octokit({ token });
         const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
         const discussionId = eventPayload.discussion.node_id;
         console.log(discussionId);
