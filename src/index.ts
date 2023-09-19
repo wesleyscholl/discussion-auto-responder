@@ -3,25 +3,25 @@ import { Octokit } from "@octokit/action";
 
 interface Res {
   addDiscussionComment: {
-    clientMutationId: string,
+    clientMutationId: string;
     comment: {
-      id: string,
-      body: string
-    }
-  }
+      id: string;
+      body: string;
+    };
+  };
 }
 
 async function run() {
-  const token = getInput('GITHUB_TOKEN');
-  const commentBody = getInput('comment_body');
+  const token = getInput("GITHUB_TOKEN");
+  const commentBody = getInput("comment_body");
 
-  const octokit = new Octokit({token});
+  const octokit = new Octokit({ token });
   const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
   const discussionId = eventPayload.discussion.node_id;
   console.log(discussionId);
 
   try {
-    const response:Res = await octokit.graphql(
+    const response: Res = await octokit.graphql(
       `
       mutation {
         addDiscussionComment(
@@ -37,10 +37,13 @@ async function run() {
       `
     );
     console.log(response);
-    setOutput('discussionId', discussionId)
-    setOutput('commentId', response?.addDiscussionComment?.comment?.id)
-    setOutput('commentBody', response?.addDiscussionComment?.comment?.body)
-    setOutput('clientMutationId', response?.addDiscussionComment?.clientMutationId)
+    setOutput("discussionId", discussionId);
+    setOutput("commentId", response?.addDiscussionComment?.comment?.id);
+    setOutput("commentBody", response?.addDiscussionComment?.comment?.body);
+    setOutput(
+      "clientMutationId",
+      response?.addDiscussionComment?.clientMutationId
+    );
   } catch (error) {
     setFailed((error as Error)?.message ?? "Unknown error");
   }
@@ -48,4 +51,4 @@ async function run() {
 
 run();
 
-export { run }
+export { run };

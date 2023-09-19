@@ -22,8 +22,8 @@ const action_1 = __nccwpck_require__(1231);
 function run() {
     var _a, _b, _c, _d, _e, _f;
     return __awaiter(this, void 0, void 0, function* () {
-        const token = (0, core_1.getInput)('GITHUB_TOKEN');
-        const commentBody = (0, core_1.getInput)('comment_body');
+        const token = (0, core_1.getInput)("GITHUB_TOKEN");
+        const commentBody = (0, core_1.getInput)("comment_body");
         const octokit = new action_1.Octokit({ token });
         const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
         const discussionId = eventPayload.discussion.node_id;
@@ -43,10 +43,10 @@ function run() {
       }
       `);
             console.log(response);
-            (0, core_1.setOutput)('discussionId', discussionId);
-            (0, core_1.setOutput)('commentId', (_b = (_a = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _a === void 0 ? void 0 : _a.comment) === null || _b === void 0 ? void 0 : _b.id);
-            (0, core_1.setOutput)('commentBody', (_d = (_c = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _c === void 0 ? void 0 : _c.comment) === null || _d === void 0 ? void 0 : _d.body);
-            (0, core_1.setOutput)('clientMutationId', (_e = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _e === void 0 ? void 0 : _e.clientMutationId);
+            (0, core_1.setOutput)("discussionId", discussionId);
+            (0, core_1.setOutput)("commentId", (_b = (_a = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _a === void 0 ? void 0 : _a.comment) === null || _b === void 0 ? void 0 : _b.id);
+            (0, core_1.setOutput)("commentBody", (_d = (_c = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _c === void 0 ? void 0 : _c.comment) === null || _d === void 0 ? void 0 : _d.body);
+            (0, core_1.setOutput)("clientMutationId", (_e = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _e === void 0 ? void 0 : _e.clientMutationId);
         }
         catch (error) {
             (0, core_1.setFailed)((_f = error === null || error === void 0 ? void 0 : error.message) !== null && _f !== void 0 ? _f : "Unknown error");

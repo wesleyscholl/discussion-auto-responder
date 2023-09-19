@@ -14,8 +14,6 @@ jobs:
       - name: Run Discussion Autoresponder
         id: autorespond
         uses: ./
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Show Output
         run: |
           echo "discussionId = ${{ steps.autorespond.outputs.discussionId }}"
