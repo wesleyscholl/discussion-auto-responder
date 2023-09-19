@@ -87,7 +87,7 @@ To run this action, the Action Workflow permissions require read and write permi
 
 ## Example
 
-Example [workflow](https://github.com/wesleyscholl/create-discussion-comment/blob/main/.github/workflows/create-comment.yml) can be found here.
+Example [workflow](https://github.com/wesleyscholl/discussion-auto-responder/blob/main/.github/workflows/respond.yml) can be found here.
 
 ##
 
