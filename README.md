@@ -32,6 +32,26 @@ In your workflow, to create a new discussion autoresponder for new discussion to
 ```
 ##
 
+## Requirements
+
+To run this action, the Action Workflow permissions require read and write permissions in the repository for all scopes. 
+
+- To configure this, go to:
+
+**-> Repository Settings
+-> Actions
+-> General
+-> Workflow Permissions**
+
+- Then select: "Read and write permissions - Workflows have read and write permissions in the repository for all scopes."
+- Finally click the save button.
+
+##
+## Config Screenshot
+<br>
+<img width="1118" alt="Screenshot 2023-09-19 at 4 37 29 PM" src="https://github.com/wesleyscholl/discussion-auto-responder/assets/128409641/5fd335d8-e57c-4482-952c-210009a5508a">
+
+
 ## Action Inputs
 
 | Name | Description | Requried? | Default |
