@@ -9,7 +9,16 @@ jobs:
     name: Posts an autoresponder comment on a new discussion
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Run Discussion Autoresponder
+        id: autorespond
+        uses: ./
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Show Output
+        run: |
+          echo "discussionId = ${{ steps.autorespond.outputs.discussionId }}"
+          echo "commentId = ${{ steps.autorespond.outputs.commentId }}"
+          echo "commentBody = ${{ steps.autorespond.outputs.commentBody }}"
+          echo "clientMutationId = ${{ steps.autorespond.outputs.clientMutationId }}"

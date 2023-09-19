@@ -1,5 +1,15 @@
-import { getInput, setFailed } from "@actions/core";
+import { getInput, setFailed, setOutput } from "@actions/core";
 import { Octokit } from "@octokit/action";
+
+interface Res {
+  addDiscussionComment: {
+    clientMutationId: string,
+    comment: {
+      id: string,
+      body: string
+    }
+  }
+}
 
 async function run() {
   const token = getInput('GITHUB_TOKEN');
@@ -11,7 +21,7 @@ async function run() {
   console.log(discussionId);
 
   try {
-    const response = await octokit.graphql(
+    const response:Res = await octokit.graphql(
       `
       mutation {
         addDiscussionComment(
@@ -27,6 +37,10 @@ async function run() {
       `
     );
     console.log(response);
+    setOutput('discussionId', discussionId)
+    setOutput('commentId', response?.addDiscussionComment?.comment?.id)
+    setOutput('commentBody', response?.addDiscussionComment?.comment?.body)
+    setOutput('clientMutationId', response?.addDiscussionComment?.clientMutationId)
   } catch (error) {
     setFailed((error as Error)?.message ?? "Unknown error");
   }
