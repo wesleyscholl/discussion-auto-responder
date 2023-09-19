@@ -9,8 +9,7 @@ runs:
 inputs:
   GITHUB_TOKEN:
     description: "The GitHub token for authentication."
-    required: false
-    default: "${{ secrets.GITHUB_TOKEN }}"
+    required: true
   comment_body:
     description: "Comment body of the discussion autoresponder."
     required: false
