@@ -14,12 +14,14 @@ interface Res {
 async function run() {
   const token = getInput("GITHUB_TOKEN");
   const commentBody = getInput("comment_body");
+  const delay = getInput("delay_seconds")
 
   const octokit = new Octokit({ token });
   const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
   const discussionId = eventPayload.discussion.node_id;
   console.log(discussionId);
-
+  await new Promise(f => setTimeout(f, Number(delay)));
+  
   try {
     const response: Res = await octokit.graphql(
       `

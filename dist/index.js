@@ -24,10 +24,12 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const token = (0, core_1.getInput)("GITHUB_TOKEN");
         const commentBody = (0, core_1.getInput)("comment_body");
+        const delay = (0, core_1.getInput)("delay_seconds");
         const octokit = new action_1.Octokit({ token });
         const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
         const discussionId = eventPayload.discussion.node_id;
         console.log(discussionId);
+        yield new Promise(f => setTimeout(f, Number(delay)));
         try {
             const response = yield octokit.graphql(`
       mutation {
