@@ -33,11 +33,11 @@ export async function run() {
         }
       }`
     );
-    console.log(response);
-    setOutput("discussionId", discussionId);
-    setOutput("commentId", response?.addDiscussionComment?.comment?.id);
-    setOutput("commentBody", response?.addDiscussionComment?.comment?.body);
-    setOutput(
+    await console.log(response);
+    await setOutput("discussionId", discussionId);
+    await setOutput("commentId", response?.addDiscussionComment?.comment?.id);
+    await setOutput("commentBody", response?.addDiscussionComment?.comment?.body);
+    await setOutput(
       "clientMutationId",
       response?.addDiscussionComment?.clientMutationId
     );

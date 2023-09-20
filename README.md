@@ -4,7 +4,7 @@ Respond to New Discussions with a Preset Comment or Welcome Message
 
  [![Tests](https://img.shields.io/badge/Tests-Passing-gree.svg?logo=github&colorA=24292e)](https://github.com/wesleyscholl/create-discussion-comment) 
 
- [![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/wesleyscholl/10f0b77400703c4a65f38434106adf2d/raw/aee6dc5c13c440ca5606fa0081512251a01e9ffd/discussion-auto-responder__heads_main.json)]
+ [![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/wesleyscholl/10f0b77400703c4a65f38434106adf2d/raw/aee6dc5c13c440ca5606fa0081512251a01e9ffd/discussion-auto-responder__heads_main.json&colorA=24292e)](https://gist.github.com/wesleyscholl/10f0b77400703c4a65f38434106adf2d)
  
  [![Code Style: prettier](https://img.shields.io/badge/Code_Style-Prettier-ff69b4.svg?logo=prettier&colorA=24292e&logoColor=white)](https://github.com/prettier/prettier) 
  
