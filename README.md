@@ -95,6 +95,8 @@ Example [workflow](https://github.com/wesleyscholl/discussion-auto-responder/blo
 
 ## Credits
 
+- [Create and Publish a GitHub Action in Typescript - Leonardo Montini](https://leonardomontini.dev/typescript-github-action)
+
 ### Inspired by:
 - [peter-evans/create-or-update-comment](https://github.com/peter-evans/create-or-update-comment)
 - [abirismyname/create-discussion](https://github.com/abirismyname/create-discussion)
