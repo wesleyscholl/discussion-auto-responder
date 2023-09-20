@@ -153,10 +153,12 @@ test("run function handles missing commentBody input", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
+  expect(mockedSetOutput).toHaveBeenCalledWith(
+    "discussionId",
+    "D_kwDOKVDDec4AVkAC"
+  );
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
-
 });
 
 test("run function validates inputs", async () => {
@@ -170,7 +172,10 @@ test("run function validates inputs", async () => {
 
   // Assertions
   expect(mockedSetOutput).toHaveBeenCalledTimes(4);
-  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
+  expect(mockedSetOutput).toHaveBeenCalledWith(
+    "discussionId",
+    "D_kwDOKVDDec4AVkAC"
+  );
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
 });
@@ -310,9 +315,7 @@ test("run function handles GraphQL request failure", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetFailed).toHaveBeenCalledWith(
-    "GraphQL request failure"
-  );
+  expect(mockedSetFailed).toHaveBeenCalledWith("GraphQL request failure");
   expect(mockedSetOutput).not.toHaveBeenCalled();
 });
 

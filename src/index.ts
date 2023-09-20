@@ -36,7 +36,10 @@ export async function run() {
     await console.log(response);
     await setOutput("discussionId", discussionId);
     await setOutput("commentId", response?.addDiscussionComment?.comment?.id);
-    await setOutput("commentBody", response?.addDiscussionComment?.comment?.body);
+    await setOutput(
+      "commentBody",
+      response?.addDiscussionComment?.comment?.body
+    );
     await setOutput(
       "clientMutationId",
       response?.addDiscussionComment?.clientMutationId
