@@ -19,16 +19,9 @@ export async function run() {
   const discussionId = eventPayload.discussion.node_id;
   await new Promise((f) => setTimeout(f, Number(delay)));
 
-  const graphqlWithAuth = graphql.defaults({
-    headers: {
-      authorization: `token ${token}`,
-    },
-  });
-
   try {
-    const response: Res = await graphqlWithAuth(
-      `
-      mutation {
+    const response: Res = await graphql(
+      `mutation {
         addDiscussionComment(
           input: { body: "${commentBody}", discussionId: "${discussionId}", clientMutationId: "1234" }
         ) {
@@ -38,8 +31,7 @@ export async function run() {
             body
           }
         }
-      }
-      `
+      }`
     );
     console.log(response);
     setOutput("discussionId", discussionId);
