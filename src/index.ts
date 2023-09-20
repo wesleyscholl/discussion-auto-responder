@@ -1,5 +1,5 @@
 import { getInput, setFailed, setOutput } from "@actions/core";
-import { Octokit } from "@octokit/action";
+import { graphql } from "@octokit/graphql";
 
 interface Res {
   addDiscussionComment: {
@@ -14,20 +14,25 @@ interface Res {
 async function run() {
   const token = getInput("GITHUB_TOKEN");
   const commentBody = getInput("comment_body");
-  const delay = getInput("delay_seconds")
+  const delay = getInput("delay_seconds");
 
-  const octokit = new Octokit({ token });
+  const graphqlWithAuth = graphql.defaults({
+    headers: {
+      authorization: `token ${token}`,
+    },
+  });
+
   const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
   const discussionId = eventPayload.discussion.node_id;
   console.log(discussionId);
   await new Promise(f => setTimeout(f, Number(delay)));
-  
+
   try {
-    const response: Res = await octokit.graphql(
+    const response: Res = await graphqlWithAuth(
       `
       mutation {
         addDiscussionComment(
-          input: {body: "${commentBody}", discussionId: "${discussionId}", clientMutationId: "1234"}
+          input: { body: "${commentBody}", discussionId: "${discussionId}", clientMutationId: "1234" }
         ) {
           clientMutationId
           comment {
