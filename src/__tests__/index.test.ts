@@ -361,7 +361,6 @@ test("run function handles invalid token input", async () => {
 // Test case for invalid discussion ID input
 test("run function handles invalid discussion ID input", async () => {
   // Mock the input values
-  mockedGetInput.mockReturnValueOnce("{{ github.token }}");
   mockedGetInput.mockReturnValueOnce("Test comment");
   mockedGetInput.mockReturnValueOnce("INVALID_DISCUSSION_ID");
 

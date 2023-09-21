@@ -20,7 +20,7 @@ export async function run() {
   delay === "" || !isNaN(Number(delay)) && setFailed("Missing or invalid time delay, please add a delay in milliseconds (ms).");
   const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
   const discussionId = eventPayload.discussion.node_id;
-  discussionId === "INVALID_DISCUSSION_ID" && setFailed("Invalid or missing discussionId.");
+  discussionId === "INVALID_DISCUSSION_ID" || "" && setFailed("Invalid or missing discussionId.");
   await new Promise((f) => setTimeout(f, Number(delay)));
 
   try {
