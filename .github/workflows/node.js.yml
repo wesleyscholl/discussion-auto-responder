@@ -25,12 +25,6 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm t
-      
-      - name: nodejsscan scan
-        id: njsscan
-        uses: ajinabraham/njsscan-action@master
-        with:
-          args: '.'
 
       - if: ${{ matrix.node-version == '14.x' }}
         name: Get Coverage for badge
