@@ -6,7 +6,7 @@ on:
 
 jobs:
   autorespond:
-    name: Posts an autoresponder comment on a new discussion
+    name: posts an autoresponder comment on a new discussion
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
