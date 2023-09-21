@@ -13,10 +13,14 @@ interface Res {
 
 export async function run() {
   const token = getInput("GITHUB_TOKEN");
+  token === "" || "INVALID_TOKEN" && setFailed("GitHub token missing or invalid, please enter a GITHUB_TOKEN");
   const commentBody = getInput("comment_body");
-  const delay = getInput("delay_seconds");
+  commentBody === "" && setFailed("No commnent body, please add a comment");
+  const delay = getInput("delay_milliseconds");
+  delay === "" || !isNaN(Number(delay)) && setFailed("Missing or invalid time delay, please add a delay in milliseconds (ms).");
   const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
   const discussionId = eventPayload.discussion.node_id;
+  discussionId === "INVALID_DISCUSSION_ID" && setFailed("Invalid or missing discussionId.");
   await new Promise((f) => setTimeout(f, Number(delay)));
 
   try {
