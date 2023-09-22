@@ -57,10 +57,7 @@ test("run function successfully runs", async () => {
   expect(mockedSetFailed).toHaveBeenCalledWith(
     "Missing or invalid time delay, please add a delay in milliseconds (ms)."
   );
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", "commentId");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", "Test comment");
   expect(mockedSetOutput).toHaveBeenCalledWith("clientMutationId", "1234");
@@ -97,10 +94,7 @@ test("run function handles missing inputs", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
 });
@@ -131,10 +125,7 @@ test("run function handles zero delay", async () => {
   expect(mockedSetFailed).toHaveBeenCalledWith(
     "Missing or invalid time delay, please add a delay in milliseconds (ms)."
   );
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", "commentId");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", "Test comment");
   expect(mockedSetOutput).toHaveBeenCalledWith("clientMutationId", "1234");
@@ -151,10 +142,7 @@ test("run function handles missing commentBody input", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
 });
@@ -170,10 +158,7 @@ test("run function validates inputs", async () => {
 
   // Assertions
   expect(mockedSetOutput).toHaveBeenCalledTimes(4);
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
 });
@@ -196,10 +181,7 @@ test("run function handles delay", async () => {
   expect(mockedSetFailed).toHaveBeenCalledWith(
     "Missing or invalid time delay, please add a delay in milliseconds (ms)."
   );
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
 });
@@ -215,10 +197,7 @@ test("run function handles invalid delay_milliseconds input", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
 });
@@ -234,10 +213,7 @@ test("run function handles negative delay", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
 });
@@ -296,10 +272,7 @@ test("run function handles empty comment body", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", "commentId");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", "Test comment");
 });
@@ -357,15 +330,10 @@ test("run function handles invalid token input", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
-  expect(mockedSetFailed).toHaveBeenCalledWith(
-    "GitHub token missing or invalid, please enter a GITHUB_TOKEN"
-  );
+  expect(mockedSetFailed).toHaveBeenCalledWith("GitHub token missing or invalid, please enter a GITHUB_TOKEN");
 });
 
 // Test case for invalid discussion ID input
@@ -380,10 +348,7 @@ test("run function handles invalid discussion ID input", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
 });
@@ -400,10 +365,7 @@ test("run function handles invalid delay_milliseconds input", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
 });
@@ -420,10 +382,7 @@ test("run function handles negative delay", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
 });
@@ -440,10 +399,7 @@ test("run function handles empty discussion ID and empty comment body", async ()
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
 });
@@ -459,13 +415,8 @@ test("run function handles empty token input", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetFailed).toHaveBeenCalledWith(
-    "No commnent body, please add a comment"
-  );
-  expect(mockedSetOutput).toHaveBeenCalledWith(
-    "discussionId",
-    "D_kwDOKVDDec4AVkAC"
-  );
+  expect(mockedSetFailed).toHaveBeenCalledWith("No commnent body, please add a comment");
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
 });
 
 test("run function handles invalid discussionId input", async () => {
@@ -488,9 +439,7 @@ test("run function handles invalid discussionId input", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetFailed).toHaveBeenCalledWith(
-    "Invalid or missing discussionId."
-  );
+  expect(mockedSetFailed).toHaveBeenCalledWith("Invalid or missing discussionId.");
   expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
