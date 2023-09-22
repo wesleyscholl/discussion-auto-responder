@@ -14,7 +14,7 @@
     "url": "git+https://github.com/wesleyscholl/discussion-auto-responder.git"
   },
   "keywords": ["github", "discussion", "workflow", "actions", "comments", "discussion-forum"],
-  "author": "Wesley Scholl",
+  "author": "wesley scholl",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wesleyscholl/discussion-auto-responder/issues"
