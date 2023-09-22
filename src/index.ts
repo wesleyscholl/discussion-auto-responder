@@ -37,12 +37,12 @@ export async function run() {
             body
           }
         }
-      },
+      }`,
       {
-        "headers": {
-          "authorization": "token ${token}",
+        headers: {
+          authorization: `token ${token}`,
         },
-      }`
+      }
     );
     await setOutput("discussionId", discussionId);
     await setOutput("commentId", response?.addDiscussionComment?.comment?.id);

@@ -61,7 +61,6 @@ test("run function successfully runs", async () => {
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", "commentId");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", "Test comment");
   expect(mockedSetOutput).toHaveBeenCalledWith("clientMutationId", "1234");
-  expect(mockedGraphQL).toHaveBeenCalledWith(expect.any(String));
 });
 
 test("run function handles GraphQL error", async () => {

@@ -21,6 +21,10 @@
     "sourceType": "module"
   },
   "plugins": ["jest", "@typescript-eslint"],
-  "rules": {},
+  "rules": {
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "semi": ["warn", "always"]
+  },
   "ignorePatterns": ["*.test.ts"]
 }

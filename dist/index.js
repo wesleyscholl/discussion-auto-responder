@@ -43,6 +43,11 @@ function run() {
             body
           }
         }
+      },
+      {
+        "headers": {
+          "authorization": "token ${token}",
+        },
       }`);
             yield (0, core_1.setOutput)("discussionId", discussionId);
             yield (0, core_1.setOutput)("commentId", (_b = (_a = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _a === void 0 ? void 0 : _a.comment) === null || _b === void 0 ? void 0 : _b.id);
