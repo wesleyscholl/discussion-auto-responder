@@ -6,7 +6,7 @@ on:
 
 jobs:
   autorespond:
-    name: posts an autoresponder comment on a new discussion
+    name: Autorespond to New Discussions with a Preset Comment or Welcome Message
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
