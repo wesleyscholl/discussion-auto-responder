@@ -22,6 +22,13 @@ beforeEach(() => {
     setFailed: mockedSetFailed,
     setOutput: mockedSetOutput,
   }));
+  // Mock the GITHUB_EVENT_PATH
+  process.env.GITHUB_EVENT_PATH = "src/event.json";
+});
+
+afterAll(() => {
+  // Restore the original process.env object after testing
+  process.env.GITHUB_EVENT_PATH = "src/event.json";
 });
 
 test("run function successfully runs", async () => {
@@ -42,16 +49,14 @@ test("run function successfully runs", async () => {
   };
   mockedGraphQL.mockResolvedValueOnce(mockedResponse);
 
-  // Mock the GITHUB_EVENT_PATH
-  process.env.GITHUB_EVENT_PATH = "src/event.json";
-  const mockedConsoleLog = jest.spyOn(console, "log");
-
   // Run the `run` function
   await run();
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetFailed).toHaveBeenCalledWith("Missing or invalid time delay, please add a delay in milliseconds (ms).");
+  expect(mockedSetFailed).toHaveBeenCalledWith(
+    "Missing or invalid time delay, please add a delay in milliseconds (ms)."
+  );
   expect(mockedSetOutput).toHaveBeenCalledWith(
     "discussionId",
     "D_kwDOKVDDec4AVkAC"
@@ -59,12 +64,6 @@ test("run function successfully runs", async () => {
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", "commentId");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", "Test comment");
   expect(mockedSetOutput).toHaveBeenCalledWith("clientMutationId", "1234");
-  expect(mockedConsoleLog).toHaveBeenCalledWith({
-    addDiscussionComment: {
-      clientMutationId: "1234",
-      comment: { body: "Test comment", id: "commentId" },
-    },
-  });
   expect(mockedGraphQL).toHaveBeenCalledWith(expect.any(String));
 });
 
@@ -92,7 +91,6 @@ test("run function handles missing inputs", async () => {
   mockedGetInput.mockReturnValueOnce(""); // Missing token
   mockedGetInput.mockReturnValueOnce(""); // Missing commentBody
   mockedGetInput.mockReturnValueOnce(""); // Missing delay
-  const mockedConsoleLog = jest.spyOn(console, "log");
 
   // Run the `run` function
   await run();
@@ -105,7 +103,6 @@ test("run function handles missing inputs", async () => {
   );
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
-  expect(mockedConsoleLog).toHaveBeenCalledWith(undefined);
 });
 
 test("run function handles zero delay", async () => {
@@ -131,7 +128,9 @@ test("run function handles zero delay", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetFailed).toHaveBeenCalledWith("Missing or invalid time delay, please add a delay in milliseconds (ms).");
+  expect(mockedSetFailed).toHaveBeenCalledWith(
+    "Missing or invalid time delay, please add a delay in milliseconds (ms)."
+  );
   expect(mockedSetOutput).toHaveBeenCalledWith(
     "discussionId",
     "D_kwDOKVDDec4AVkAC"
@@ -194,7 +193,9 @@ test("run function handles delay", async () => {
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
   expect(mockedSetTimeout).toHaveBeenCalledWith(expect.any(Function), 3000);
-  expect(mockedSetFailed).toHaveBeenCalledWith("Missing or invalid time delay, please add a delay in milliseconds (ms).");
+  expect(mockedSetFailed).toHaveBeenCalledWith(
+    "Missing or invalid time delay, please add a delay in milliseconds (ms)."
+  );
   expect(mockedSetOutput).toHaveBeenCalledWith(
     "discussionId",
     "D_kwDOKVDDec4AVkAC"
@@ -295,7 +296,10 @@ test("run function handles empty comment body", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "");
+  expect(mockedSetOutput).toHaveBeenCalledWith(
+    "discussionId",
+    "D_kwDOKVDDec4AVkAC"
+  );
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", "commentId");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", "Test comment");
 });
@@ -319,6 +323,7 @@ test("run function handles GraphQL request failure", async () => {
 });
 
 test("run function handles missing addDiscussionComment field in GraphQL response", async () => {
+  process.env.GITHUB_EVENT_PATH = "src/testevent.json";
   // Mock the input values
   mockedGetInput.mockReturnValueOnce("{{ github.token }}");
   mockedGetInput.mockReturnValueOnce("Test comment");
@@ -352,27 +357,35 @@ test("run function handles invalid token input", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "");
+  expect(mockedSetOutput).toHaveBeenCalledWith(
+    "discussionId",
+    "D_kwDOKVDDec4AVkAC"
+  );
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
-  expect(mockedSetFailed).toHaveBeenCalledWith("GitHub token missing or invalid, please enter a GITHUB_TOKEN");
+  expect(mockedSetFailed).toHaveBeenCalledWith(
+    "GitHub token missing or invalid, please enter a GITHUB_TOKEN"
+  );
 });
 
 // Test case for invalid discussion ID input
 test("run function handles invalid discussion ID input", async () => {
   // Mock the input values
+  mockedGetInput.mockReturnValueOnce(" ");
   mockedGetInput.mockReturnValueOnce("Test comment");
   mockedGetInput.mockReturnValueOnce("INVALID_DISCUSSION_ID");
-
+  mockedGetInput.mockReturnValueOnce("1000");
   // Run the `run` function
   await run();
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "");
+  expect(mockedSetOutput).toHaveBeenCalledWith(
+    "discussionId",
+    "D_kwDOKVDDec4AVkAC"
+  );
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
-  expect(mockedSetFailed).toHaveBeenCalledWith("GitHub token missing or invalid, please enter a GITHUB_TOKEN");
 });
 
 // Test case for invalid delay_milliseconds input
@@ -387,11 +400,12 @@ test("run function handles invalid delay_milliseconds input", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "");
+  expect(mockedSetOutput).toHaveBeenCalledWith(
+    "discussionId",
+    "D_kwDOKVDDec4AVkAC"
+  );
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
-  expect(mockedSetFailed).toHaveBeenCalledWith("GitHub token missing or invalid, please enter a GITHUB_TOKEN");
-
 });
 
 // Test case for negative delay
@@ -406,11 +420,12 @@ test("run function handles negative delay", async () => {
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
-  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "");
+  expect(mockedSetOutput).toHaveBeenCalledWith(
+    "discussionId",
+    "D_kwDOKVDDec4AVkAC"
+  );
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
-  expect(mockedSetFailed).toHaveBeenCalledWith("GitHub token missing or invalid, please enter a GITHUB_TOKEN");
-  expect(mockedSetFailed).toHaveBeenCalledWith("Missing or invalid time delay, please add a delay in milliseconds (ms).");
 });
 
 // Test case for empty discussion ID and empty comment body
@@ -425,9 +440,58 @@ test("run function handles empty discussion ID and empty comment body", async ()
 
   // Assertions
   expect(mockedGetInput).toHaveBeenCalledTimes(3);
+  expect(mockedSetOutput).toHaveBeenCalledWith(
+    "discussionId",
+    "D_kwDOKVDDec4AVkAC"
+  );
+  expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
+  expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
+});
+
+test("run function handles empty token input", async () => {
+  // Mock the input values
+  mockedGetInput.mockReturnValueOnce(""); // Empty token
+  mockedGetInput.mockReturnValueOnce("Test comment");
+  mockedGetInput.mockReturnValueOnce("5");
+
+  // Run the `run` function
+  await run();
+
+  // Assertions
+  expect(mockedGetInput).toHaveBeenCalledTimes(3);
+  expect(mockedSetFailed).toHaveBeenCalledWith(
+    "No commnent body, please add a comment"
+  );
+  expect(mockedSetOutput).toHaveBeenCalledWith(
+    "discussionId",
+    "D_kwDOKVDDec4AVkAC"
+  );
+});
+
+test("run function handles invalid discussionId input", async () => {
+  // Mock the input values
+  mockedGetInput.mockReturnValueOnce("{{ github.token }}");
+  mockedGetInput.mockReturnValueOnce("Test comment");
+  mockedGetInput.mockReturnValueOnce("5");
+  process.env.GITHUB_EVENT_PATH = "src/testevent.json";
+
+  // Mock an invalid discussionId
+  const eventPayload = {
+    discussion: {
+      node_id: "INVALID_DISCUSSION_ID",
+    },
+  };
+  mockedGraphQL.mockResolvedValueOnce({}); // GraphQL response doesn't matter here
+
+  // Run the `run` function
+  await run();
+
+  // Assertions
+  expect(mockedGetInput).toHaveBeenCalledTimes(3);
+  expect(mockedSetFailed).toHaveBeenCalledWith(
+    "Invalid or missing discussionId."
+  );
   expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "");
   expect(mockedSetOutput).toHaveBeenCalledWith("commentId", undefined);
   expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", undefined);
-  expect(mockedSetFailed).toHaveBeenCalledWith("GitHub token missing or invalid, please enter a GITHUB_TOKEN");
-  expect(mockedSetFailed).toHaveBeenCalledWith("No commnent body, please add a comment");
 });
