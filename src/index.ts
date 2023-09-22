@@ -37,7 +37,6 @@ export async function run() {
         }
       }`
     );
-    // await console.log(response);
     await setOutput("discussionId", discussionId);
     await setOutput("commentId", response?.addDiscussionComment?.comment?.id);
     await setOutput(
