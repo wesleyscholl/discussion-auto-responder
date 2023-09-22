@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 4822:
+/***/ 9726:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -20,23 +20,20 @@ exports.run = void 0;
 const core_1 = __nccwpck_require__(2186);
 const graphql_1 = __nccwpck_require__(8467);
 function run() {
-    var _a, _b, _c, _d, _e, _f;
+    var _a, _b, _c, _d, _e;
     return __awaiter(this, void 0, void 0, function* () {
         const token = (0, core_1.getInput)("GITHUB_TOKEN");
+        token === "" || token === "INVALID_TOKEN" && (0, core_1.setFailed)("GitHub token missing or invalid, please enter a GITHUB_TOKEN");
         const commentBody = (0, core_1.getInput)("comment_body");
-        const delay = (0, core_1.getInput)("delay_seconds");
-        const graphqlWithAuth = graphql_1.graphql.defaults({
-            headers: {
-                authorization: `token ${token}`,
-            },
-        });
+        commentBody === "" && (0, core_1.setFailed)("No commnent body, please add a comment");
+        const delay = (0, core_1.getInput)("delay_milliseconds");
+        delay === "" || !isNaN(Number(delay)) && (0, core_1.setFailed)("Missing or invalid time delay, please add a delay in milliseconds (ms).");
         const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
         const discussionId = eventPayload.discussion.node_id;
-        console.log(discussionId);
-        yield new Promise(f => setTimeout(f, Number(delay)));
+        discussionId === "INVALID_DISCUSSION_ID" || discussionId === "" && (0, core_1.setFailed)("Invalid or missing discussionId.");
+        yield new Promise((f) => setTimeout(f, Number(delay)));
         try {
-            const response = yield graphqlWithAuth(`
-      mutation {
+            const response = yield (0, graphql_1.graphql)(`mutation {
         addDiscussionComment(
           input: { body: "${commentBody}", discussionId: "${discussionId}", clientMutationId: "1234" }
         ) {
@@ -46,21 +43,21 @@ function run() {
             body
           }
         }
-      }
-      `);
-            console.log(response);
-            (0, core_1.setOutput)("discussionId", discussionId);
-            (0, core_1.setOutput)("commentId", (_b = (_a = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _a === void 0 ? void 0 : _a.comment) === null || _b === void 0 ? void 0 : _b.id);
-            (0, core_1.setOutput)("commentBody", (_d = (_c = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _c === void 0 ? void 0 : _c.comment) === null || _d === void 0 ? void 0 : _d.body);
-            (0, core_1.setOutput)("clientMutationId", (_e = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _e === void 0 ? void 0 : _e.clientMutationId);
+      }`);
+            yield (0, core_1.setOutput)("discussionId", discussionId);
+            yield (0, core_1.setOutput)("commentId", (_b = (_a = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _a === void 0 ? void 0 : _a.comment) === null || _b === void 0 ? void 0 : _b.id);
+            yield (0, core_1.setOutput)("commentBody", (_d = (_c = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _c === void 0 ? void 0 : _c.comment) === null || _d === void 0 ? void 0 : _d.body);
+            yield (0, core_1.setOutput)("clientMutationId", (_e = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _e === void 0 ? void 0 : _e.clientMutationId);
         }
         catch (error) {
-            (0, core_1.setFailed)((_f = error === null || error === void 0 ? void 0 : error.message) !== null && _f !== void 0 ? _f : "Unknown error");
+            (0, core_1.setFailed)(error.message);
         }
     });
 }
 exports.run = run;
-run();
+if (!process.env.JEST_WORKER_ID) {
+    run();
+}
 
 
 /***/ }),
@@ -7901,7 +7898,7 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(4822);
+/******/ 	var __webpack_exports__ = __nccwpck_require__(9726);
 /******/ 	module.exports = __webpack_exports__;
 /******/ 	
 /******/ })()
