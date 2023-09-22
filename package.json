@@ -1,7 +1,7 @@
 {
   "name": "discussion-auto-responder",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.2",
+  "description": "Autorespond to New Discussions with a Preset Comment or Welcome Message",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -13,8 +13,8 @@
     "type": "git",
     "url": "git+https://github.com/wesleyscholl/discussion-auto-responder.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["github", "discussion", "workflow", "actions", "comments", "discussion-forum"],
+  "author": "Wesley Scholl",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wesleyscholl/discussion-auto-responder/issues"
