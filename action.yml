@@ -1,5 +1,5 @@
 name: "Discussion Auto Responder"
-description: "Comment or autorespond to new discussions"
+description: "Autorespond to New Discussions with a Preset Comment or Welcome Message"
 author: "Wesley Scholl"
 
 runs:
