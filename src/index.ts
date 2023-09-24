@@ -13,21 +13,18 @@ interface Res {
 
 export async function run() {
   const token = getInput("GITHUB_TOKEN");
-  token === "" ||
-    (token === "INVALID_TOKEN" && setFailed("GitHub token missing or invalid, please enter a GITHUB_TOKEN"));
+  token === "INVALID_TOKEN" && setFailed("GitHub token missing or invalid, please enter a GITHUB_TOKEN");
   const commentBody = getInput("comment_body");
-  commentBody === "" && setFailed("No commnent body, please add a comment");
   const delay = getInput("delay_milliseconds");
-  delay === "" ||
-    (!isNaN(Number(delay)) && setFailed("Missing or invalid time delay, please add a delay in milliseconds (ms)."));
   const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
   const discussionId = eventPayload.discussion.node_id;
-  discussionId === "INVALID_DISCUSSION_ID" || (discussionId === "" && setFailed("Invalid or missing discussionId."));
+  console.log(discussionId);
+  discussionId === "INVALID_DISCUSSION_ID" && setFailed("Invalid or missing discussionId.");
   await new Promise((f) => setTimeout(f, Number(delay)));
 
   try {
-    const response: Res = await graphql(
-      `mutation {
+    const response: Res = await graphql({
+      mutation: `mutation {
         addDiscussionComment(
           input: { body: "${commentBody}", discussionId: "${discussionId}", clientMutationId: "1234" }
         ) {
@@ -38,12 +35,10 @@ export async function run() {
           }
         }
       }`,
-      {
-        headers: {
-          authorization: `token ${token}`,
-        },
-      }
-    );
+      headers: {
+        authorization: `token ${token}`,
+      },
+    });
     await setOutput("discussionId", discussionId);
     await setOutput("commentId", response?.addDiscussionComment?.comment?.id);
     await setOutput("commentBody", response?.addDiscussionComment?.comment?.body);

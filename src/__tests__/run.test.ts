@@ -12,7 +12,7 @@ const mockedGraphQL = mocked(graphql);
 let originalEnv: NodeJS.ProcessEnv;
 
 beforeEach(() => {
-     // Store the original process.env object
+  // Store the original process.env object
   originalEnv = process.env;
   // Clear mock calls and reset any mocked values before each test
   jest.clearAllMocks();
@@ -38,7 +38,7 @@ test("should call run() when JEST_WORKER_ID is not defined", async () => {
 
   mockedGetInput.mockReturnValueOnce("{{ github.token }}");
   mockedGetInput.mockReturnValueOnce("Test comment");
-  mockedGetInput.mockReturnValueOnce("5");
+  mockedGetInput.mockReturnValueOnce("2000");
 
   // Mock the GraphQL response
   const mockedResponse = {
@@ -55,9 +55,12 @@ test("should call run() when JEST_WORKER_ID is not defined", async () => {
   // Call the conditional block
   await run();
 
-  expect(mockedSetFailed).toHaveBeenCalledWith(
-    "Missing or invalid time delay, please add a delay in milliseconds (ms)."
-  );
+  // Assertions
+  expect(mockedGetInput).toHaveBeenCalledTimes(3);
+  expect(mockedSetOutput).toHaveBeenCalledWith("discussionId", "D_kwDOKVDDec4AVkAC");
+  expect(mockedSetOutput).toHaveBeenCalledWith("commentId", "commentId");
+  expect(mockedSetOutput).toHaveBeenCalledWith("commentBody", "Test comment");
+  expect(mockedSetOutput).toHaveBeenCalledWith("clientMutationId", "1234");
 });
 
 test("should not call run() when JEST_WORKER_ID is defined", () => {

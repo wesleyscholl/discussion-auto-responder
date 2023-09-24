@@ -9,7 +9,8 @@ runs:
 inputs:
   GITHUB_TOKEN:
     description: "The GitHub token for authentication."
-    required: true
+    required: false
+    default: "{{ secrets.GITHUB_TOKEN }}"
   comment_body:
     description: "Comment body of the discussion autoresponder."
     required: false
@@ -17,7 +18,7 @@ inputs:
   delay_milliseconds:
     description: "Amount of delay time before the autoresponder comment is posted."
     required: false
-    default: 15000
+    default: 5000
 
 branding:
   icon: "message-square"
