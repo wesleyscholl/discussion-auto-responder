@@ -19,7 +19,7 @@ In your workflow, to create a new discussion autoresponder for new discussion to
 
 ```yaml
 - name: Run discussion-auto-responder
-  uses: wesleyscholl/discussion-auto-responder@v1.0.x
+  uses: wesleyscholl/discussion-auto-responder@v1.0.8
   id: autoresponder-comment
   with:
    GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" # Optional, if you wish you can use: "${{ secrets.<YOUR_PAT_TOKEN> }}"  
