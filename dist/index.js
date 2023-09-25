@@ -23,17 +23,17 @@ function run() {
     var _a, _b, _c, _d, _e;
     return __awaiter(this, void 0, void 0, function* () {
         const token = (0, core_1.getInput)("GITHUB_TOKEN");
-        token === "" || token === "INVALID_TOKEN" && (0, core_1.setFailed)("GitHub token missing or invalid, please enter a GITHUB_TOKEN");
+        token === "INVALID_TOKEN" && (0, core_1.setFailed)("GitHub token missing or invalid, please enter a GITHUB_TOKEN");
         const commentBody = (0, core_1.getInput)("comment_body");
-        commentBody === "" && (0, core_1.setFailed)("No commnent body, please add a comment");
         const delay = (0, core_1.getInput)("delay_milliseconds");
-        delay === "" || !isNaN(Number(delay)) && (0, core_1.setFailed)("Missing or invalid time delay, please add a delay in milliseconds (ms).");
         const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
         const discussionId = eventPayload.discussion.node_id;
-        discussionId === "INVALID_DISCUSSION_ID" || discussionId === "" && (0, core_1.setFailed)("Invalid or missing discussionId.");
+        console.log(discussionId);
+        discussionId === "INVALID_DISCUSSION_ID" && (0, core_1.setFailed)("Invalid or missing discussionId.");
         yield new Promise((f) => setTimeout(f, Number(delay)));
         try {
-            const response = yield (0, graphql_1.graphql)(`mutation {
+            const response = yield (0, graphql_1.graphql)({
+                mutation: `mutation {
         addDiscussionComment(
           input: { body: "${commentBody}", discussionId: "${discussionId}", clientMutationId: "1234" }
         ) {
@@ -43,12 +43,11 @@ function run() {
             body
           }
         }
-      },
-      {
-        "headers": {
-          "authorization": "token ${token}",
-        },
-      }`);
+      }`,
+                headers: {
+                    authorization: `token ${token}`,
+                }
+            });
             yield (0, core_1.setOutput)("discussionId", discussionId);
             yield (0, core_1.setOutput)("commentId", (_b = (_a = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _a === void 0 ? void 0 : _a.comment) === null || _b === void 0 ? void 0 : _b.id);
             yield (0, core_1.setOutput)("commentBody", (_d = (_c = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _c === void 0 ? void 0 : _c.comment) === null || _d === void 0 ? void 0 : _d.body);

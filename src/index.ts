@@ -18,7 +18,6 @@ export async function run() {
   const delay = getInput("delay_milliseconds");
   const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
   const discussionId = eventPayload.discussion.node_id;
-  console.log(discussionId);
   discussionId === "INVALID_DISCUSSION_ID" && setFailed("Invalid or missing discussionId.");
   await new Promise((f) => setTimeout(f, Number(delay)));
 
