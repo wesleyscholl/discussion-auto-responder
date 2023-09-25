@@ -28,7 +28,6 @@ function run() {
         const delay = (0, core_1.getInput)("delay_milliseconds");
         const eventPayload = require(String(process.env.GITHUB_EVENT_PATH));
         const discussionId = eventPayload.discussion.node_id;
-        console.log(discussionId);
         discussionId === "INVALID_DISCUSSION_ID" && (0, core_1.setFailed)("Invalid or missing discussionId.");
         yield new Promise((f) => setTimeout(f, Number(delay)));
         try {
@@ -46,7 +45,7 @@ function run() {
       }`,
                 headers: {
                     authorization: `token ${token}`,
-                }
+                },
             });
             yield (0, core_1.setOutput)("discussionId", discussionId);
             yield (0, core_1.setOutput)("commentId", (_b = (_a = response === null || response === void 0 ? void 0 : response.addDiscussionComment) === null || _a === void 0 ? void 0 : _a.comment) === null || _b === void 0 ? void 0 : _b.id);

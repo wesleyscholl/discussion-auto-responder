@@ -23,7 +23,7 @@ export async function run() {
 
   try {
     const response: Res = await graphql({
-      mutation: `mutation {
+      query: `mutation {
         addDiscussionComment(
           input: { body: "${commentBody}", discussionId: "${discussionId}", clientMutationId: "1234" }
         ) {
