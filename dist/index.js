@@ -32,7 +32,7 @@ function run() {
         yield new Promise((f) => setTimeout(f, Number(delay)));
         try {
             const response = yield (0, graphql_1.graphql)({
-                mutation: `mutation {
+                query: `mutation {
         addDiscussionComment(
           input: { body: "${commentBody}", discussionId: "${discussionId}", clientMutationId: "1234" }
         ) {
