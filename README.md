@@ -9,7 +9,7 @@ Autorespond to New Discussions with a Preset Comment or Welcome Message
 
 ## About
 
-Discussion Autoresponder allows you to automatically create comments on new GitHub Discussions with a GitHub Action. This could be used to post a welcome comment, a message for responding back soon, and other use cases. 
+Discussion Autoresponder allows you to automatically create comments on new GitHub Discussions with a GitHub Action. This could be used to post a welcome comment, a message for responding back to new discussion topics, and other use cases. 
 
 
 ## Usage
