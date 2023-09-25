@@ -28,7 +28,7 @@ In your workflow, to create a new discussion autoresponder for new discussion to
        
 ```
 
-**To function as intended, ensure you have the following in your workflow:
+**To function as intended, ensure you have the following in your workflow:**
 
 ```yaml
 on: 
@@ -40,7 +40,7 @@ on:
 
 To run this action, the Action Workflow permissions require read and write permissions in the repository for all scopes. 
 
-- To configure this, go to:
+To configure this, go to:
 
 -[x] Repository Settings
 -[x] Actions
