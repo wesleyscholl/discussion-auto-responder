@@ -42,13 +42,12 @@ To run this action, the Action Workflow permissions require read and write permi
 
 To configure this, go to:
 
+
 -[x] Repository Settings
-
 -[x] Actions
-
--[x] General
-
+-[x] Generally
 -[x] Workflow Permissions
+
 
 - Then select: "Read and write permissions - Workflows have read and write permissions in the repository for all scopes."
 - Finally click the save button.
