@@ -1,4 +1,4 @@
-# Discussion Autoresponder
+# Discussion Autoresponder 💬⏳📝
 
 Autorespond to New Discussions with a Preset Comment or Welcome Message
 
