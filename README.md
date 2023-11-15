@@ -99,6 +99,7 @@ Example [workflow](https://github.com/wesleyscholl/discussion-auto-responder/blo
 ## Credits
 
 - [Create and Publish a GitHub Action in Typescript - Leonardo Montini](https://leonardomontini.dev/typescript-github-action)
+- [Coverage Badge with GitHub Actions - FINALLY!](https://dev.to/thejaredwilcurt/coverage-badge-with-github-actions-finally-59fa)
 
 ### Inspired by:
 - [peter-evans/create-or-update-comment](https://github.com/peter-evans/create-or-update-comment)
